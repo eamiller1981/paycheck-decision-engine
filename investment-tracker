@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Personal Finance Dashboard</title>
+  <style>
+    body { font-family: Arial; margin: 40px; }
+    h1 { margin-bottom: 10px; }
+    table { border-collapse: collapse; width: 400px; }
+    td, th { border: 1px solid #ccc; padding: 8px; text-align: right; }
+    th { background: #f4f4f4; }
+    input { width: 100px; }
+    .left { text-align: left; }
+  </style>
+</head>
+
+<body>
+
+<h1>📊 Monthly Portfolio Dashboard</h1>
+
+<table>
+  <tr><th class="left">Asset</th><th>Amount ($)</th></tr>
+  <tr><td class="left">401k</td><td><input id="k401" type="number" value="94832"></td></tr>
+  <tr><td class="left">Cisco Stock</td><td><input id="cisco" type="number" value="61634"></td></tr>
+  <tr><td class="left">VTI (US Stocks)</td><td><input id="vti" type="number" value="0"></td></tr>
+  <tr><td class="left">VXUS (Intl Stocks)</td><td><input id="vxus" type="number" value="0"></td></tr>
+  <tr><td class="left">BND (Bonds)</td><td><input id="bnd" type="number" value="0"></td></tr>
+  <tr><td class="left">Crypto</td><td><input id="crypto" type="number" value="0"></td></tr>
+  <tr><td class="left">HYSA (Cash)</td><td><input id="cash" type="number" value="0"></td></tr>
+</table>
+
+<br>
+
+<button onclick="calculate()">Calculate Allocation</button>
+
+<h2>Results</h2>
+<p id="total"></p>
+
+<table>
+  <tr><th class="left">Asset</th><th>% Allocation</th></tr>
+  <tr><td class="left">401k</td><td id="k401p"></td></tr>
+  <tr><td class="left">Cisco</td><td id="ciscop"></td></tr>
+  <tr><td class="left">VTI</td><td id="vtip"></td></tr>
+  <tr><td class="left">VXUS</td><td id="vxusp"></td></tr>
+  <tr><td class="left">BND</td><td id="bndp"></td></tr>
+  <tr><td class="left">Crypto</td><td id="cryptop"></td></tr>
+  <tr><td class="left">Cash</td><td id="cashp"></td></tr>
+</table>
+
+<script>
+function calculate() {
+  let k401 = parseFloat(document.getElementById('k401').value) || 0;
+  let cisco = parseFloat(document.getElementById('cisco').value) || 0;
+  let vti = parseFloat(document.getElementById('vti').value) || 0;
+  let vxus = parseFloat(document.getElementById('vxus').value) || 0;
+  let bnd = parseFloat(document.getElementById('bnd').value) || 0;
+  let crypto = parseFloat(document.getElementById('crypto').value) || 0;
+  let cash = parseFloat(document.getElementById('cash').value) || 0;
+
+  let total = k401 + cisco + vti + vxus + bnd + crypto + cash;
+
+  document.getElementById('total').innerText = "Total Portfolio: $" + total.toFixed(2);
+
+  function percent(val) {
+    return total ? ((val / total) * 100).toFixed(1) + "%" : "0%";
+  }
+
+  document.getElementById('k401p').innerText = percent(k401);
+  document.getElementById('ciscop').innerText = percent(cisco);
+  document.getElementById('vtip').innerText = percent(vti);
+  document.getElementById('vxusp').innerText = percent(vxus);
+  document.getElementById('bndp').innerText = percent(bnd);
+  document.getElementById('cryptop').innerText = percent(crypto);
+  document.getElementById('cashp').innerText = percent(cash);
+}
+</script>
+
+</body>
+</html>
